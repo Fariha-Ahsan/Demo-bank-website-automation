@@ -1,0 +1,69 @@
+<html>
+<head>
+<title>main.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #a9b7c6;}
+.s1 { color: #cc7832;}
+.s2 { color: #6a8759;}
+.s3 { color: #6897bb;}
+.s4 { color: #808080;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+main.py</font>
+</center></td></tr></table>
+<pre>
+<span class="s1">import </span><span class="s0">time</span>
+<span class="s1">import </span><span class="s0">unittest</span>
+<span class="s1">from </span><span class="s0">selenium </span><span class="s1">import </span><span class="s0">webdriver</span>
+<span class="s1">from </span><span class="s0">selenium.webdriver </span><span class="s1">import </span><span class="s0">ActionChains</span>
+<span class="s1">from </span><span class="s0">selenium.webdriver.chrome.service </span><span class="s1">import </span><span class="s0">Service</span>
+<span class="s1">from </span><span class="s0">selenium.webdriver.common.keys </span><span class="s1">import </span><span class="s0">Keys</span>
+<span class="s1">from </span><span class="s0">selenium.webdriver.common.by </span><span class="s1">import </span><span class="s0">By</span>
+<span class="s1">from </span><span class="s0">webdriver_manager.chrome </span><span class="s1">import </span><span class="s0">ChromeDriverManager</span>
+
+
+<span class="s1">class </span><span class="s0">TestDarazAutomation(unittest.TestCase):</span>
+
+    <span class="s1">def </span><span class="s0">setUp(self):</span>
+        <span class="s0">self.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))</span>
+        <span class="s0">self.base_url=</span><span class="s2">&quot;https://www.daraz.com.bd/?spm=a2a0e.home.header.dhome.26a712f7FqmeUv&quot;</span>
+        <span class="s0">self.driver.implicitly_wait(</span><span class="s3">30</span><span class="s0">)</span>
+
+
+    <span class="s1">def </span><span class="s0">test_category(self):</span>
+        <span class="s0">driver=self.driver</span>
+        <span class="s0">driver.get(self.base_url)</span>
+        <span class="s0">cat_btn=driver.find_element(By.XPATH</span><span class="s1">,</span><span class="s2">&quot;//span[@class='lzd-site-menu-nav-category-text']&quot;</span><span class="s0">)</span>
+        <span class="s0">actionchain=ActionChains(driver)</span>
+        <span class="s0">actionchain.move_to_element(cat_btn).perform()</span>
+        <span class="s0">time.sleep(</span><span class="s3">5</span><span class="s0">)</span>
+        <span class="s0">driver.find_element(By.XPATH</span><span class="s1">,</span><span class="s2">&quot;//span[normalize-space()='Health &amp; Beauty']&quot;</span><span class="s0">).click()</span>
+        <span class="s0">time.sleep(</span><span class="s3">5</span><span class="s0">)</span>
+    <span class="s1">def </span><span class="s0">test_search_in_homepage(self):</span>
+        <span class="s0">driver = self.driver</span>
+        <span class="s0">elem = driver.find_element(By.ID</span><span class="s1">, </span><span class="s2">&quot;q&quot;</span><span class="s0">)</span>
+        <span class="s0">elem.send_keys(</span><span class="s2">&quot;mobile&quot;</span><span class="s0">)</span>
+        <span class="s0">elem.send_keys(Keys.RETURN)</span>
+        <span class="s4">#get_url=driver.current_url</span>
+        <span class="s4">#print(&quot;new url is&quot;+str(get_url))</span>
+        <span class="s0">self.assertNotIn(</span><span class="s2">&quot;No results found.&quot;</span><span class="s1">, </span><span class="s0">driver.page_source)</span>
+
+
+
+
+
+    <span class="s1">def </span><span class="s0">tearDown(self):</span>
+
+        <span class="s0">self.driver.close()</span>
+
+
+<span class="s1">if </span><span class="s0">__name__ == </span><span class="s2">&quot;__main__&quot;</span><span class="s0">:</span>
+    <span class="s0">unittest.main()</span>
+</pre>
+</body>
+</html>
