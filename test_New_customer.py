@@ -1,4 +1,4 @@
-
+import pytest
 from selenium import webdriver
 import time
 import unittest
@@ -7,8 +7,8 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.remote.webelement import WebElement
-
 class NewCustomerPage(unittest.TestCase):
+
     def setUp(self):
         browser = self.driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
         self.driver.maximize_window()
